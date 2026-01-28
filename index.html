@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Diary 🤎</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #f2e6d8;
+        font-family: 'Comic Sans MS', cursive;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* ---------- COVER ---------- */
+    .cover {
+        position: fixed;
+        inset: 0;
+        background: #ddb892;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        cursor: pointer;
+        transition: 1s ease;
+    }
+
+    .cover-book {
+        width: 300px;
+        height: 420px;
+        background: #b08968;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: pulse 2s infinite;
+        position: relative;
+    }
+
+    .cover-book img {
+        width: 90%;
+        height: 90%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    @keyframes pulse {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    /* ---------- DIARY ---------- */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: 1s ease;
+    }
+
+    .container.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .diary {
+        width: 90%;
+        max-width: 950px;
+        height: 85%;
+        background: #fffaf4;
+        border-radius: 20px;
+        border: 10px solid #b08968;
+        display: flex;
+        box-shadow: 0 0 25px rgba(0,0,0,0.25);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .left {
+        width: 35%;
+        background: linear-gradient(#d8b4a0, #f4c2c2);
+        padding: 20px;
+        text-align: center;
+        color: #5a3e36;
+        position: relative;
+    }
+
+    .right {
+        width: 65%;
+        padding: 25px;
+        background: #fffdf9;
+        position: relative;
+    }
+
+    /* ---------- FLOATING TEDDY ---------- */
+    .floating-teddy {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 90px;
+        animation: float 3s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    @keyframes float {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    /* ---------- STICKERS ---------- */
+    .sticker {
+        position: absolute;
+        width: 50px;
+        pointer-events: none;
+    }
+
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
+
+    /* ---------- TEXT AREA ---------- */
+    .top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #8b5e3c;
+    }
+
+    textarea {
+        width: 100%;
+        height: 70%;
+        border: none;
+        resize: none;
+        outline: none;
+        background: repeating-linear-gradient(
+            white,
+            white 28px,
+            #f0e0d6 29px
+        );
+        font-size: 16px;
+        line-height: 29px;
+        padding: 10px;
+        font-family: 'Comic Sans MS', cursive;
+        color: #5a3e36;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    button {
+        background: #d8a7b1;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        color: white;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- ========== COVER PAGE ========== -->
+<div class="cover" onclick="openDiary()">
+    <div class="cover-book">
+        <!-- 🔴 ADD YOUR DIARY COVER IMAGE HERE -->
+         <img src="https://i.pinimg.com/736x/9f/61/71/9f6171fc7f17b3e4fde6d229834989ca.jpg">
+
+    </div>
+</div>
+
+<!-- ========== DIARY ========== -->
+<div class="container" id="container">
+    <div class="diary">
+
+        <div class="left">
+            <h2>Our Diary 🤎</h2>
+            <p>100 little memories</p>
+
+            <!-- 🔴 FLOATING TEDDY IMAGE -->
+            
+
+
+            <!-- 🔴 STICKER IMAGES -->
+                    </div>
+
+        <div class="right">
+            <div class="top">
+                <div id="date"></div>
+                <div>Page <span id="pageNo">1</span> / 100</div>
+            </div>
+
+            <textarea id="entry" placeholder="Dear diary..."></textarea>
+
+            <div class="controls">
+                <button onclick="prevPage()">⬅ Prev</button>
+                <button onclick="savePage()">Save 💾</button>
+                <button onclick="nextPage()">Next ➡</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDiary() {
+        document.querySelector(".cover").style.opacity = "0";
+        document.querySelector(".cover").style.pointerEvents = "none";
+        document.getElementById("container").classList.add("show");
+    }
+
+    let currentPage = 1;
+    const entry = document.getElementById("entry");
+    const pageNo = document.getElementById("pageNo");
+    document.getElementById("date").innerText = new Date().toDateString();
+
+    function loadPage() {
+        pageNo.innerText = currentPage;
+        entry.value = localStorage.getItem("diaryPage" + currentPage) || "";
+    }
+
+    function savePage() {
+        localStorage.setItem("diaryPage" + currentPage, entry.value);
+    }
+
+    function nextPage() {
+        if (currentPage < 100) {
+            savePage();
+            currentPage++;
+            loadPage();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            savePage();
+            currentPage--;
+            loadPage();
+        }
+    }
+
+    loadPage();
+</script>
+
+</body>
+</html>
