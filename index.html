@@ -1,252 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Our Diary 🤎</title>
-
-<style>
+  <meta charset="UTF-8">
+  <title>Our Shared Diary 🤎</title>
+  <style>
     body {
-        margin: 0;
-        background: #f2e6d8;
-        font-family: 'Comic Sans MS', cursive;
-        height: 100vh;
-        overflow: hidden;
+      margin: 0;
+      background: #f2e6d8;
+      font-family: "Comic Sans MS", cursive;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    /* ---------- COVER ---------- */
+    /* COVER */
     .cover {
-        position: fixed;
-        inset: 0;
-        background: #ddb892;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-        cursor: pointer;
-        transition: 1s ease;
+      position: fixed;
+      inset: 0;
+      background: #ddb892;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      cursor: pointer;
+      transition: 1s ease;
     }
 
     .cover-book {
-        width: 300px;
-        height: 420px;
-        background: #b08968;
-        border-radius: 15px;
-        box-shadow: 0 0 30px rgba(0,0,0,0.3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        animation: pulse 2s infinite;
-        position: relative;
+      width: 320px;
+      height: 450px;
+      background: #b08968;
+      border-radius: 18px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: pulse 2s infinite;
     }
 
     .cover-book img {
-        width: 90%;
-        height: 90%;
-        object-fit: cover;
-        border-radius: 10px;
+      width: 92%;
+      height: 92%;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
     @keyframes pulse {
-        0%,100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
-    /* ---------- DIARY ---------- */
+    /* DIARY */
     .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        opacity: 0;
-        transform: scale(0.9);
-        transition: 1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: 1s ease;
     }
 
     .container.show {
-        opacity: 1;
-        transform: scale(1);
+      opacity: 1;
+      transform: scale(1);
     }
 
     .diary {
-        width: 90%;
-        max-width: 950px;
-        height: 85%;
-        background: #fffaf4;
-        border-radius: 20px;
-        border: 10px solid #b08968;
-        display: flex;
-        box-shadow: 0 0 25px rgba(0,0,0,0.25);
-        position: relative;
-        overflow: hidden;
+      width: 92%;
+      max-width: 950px;
+      height: 85%;
+      background: #fffaf4;
+      border-radius: 20px;
+      border: 10px solid #b08968;
+      display: flex;
+      box-shadow: 0 0 25px rgba(0,0,0,0.25);
+      overflow: hidden;
     }
 
     .left {
-        width: 35%;
-        background: linear-gradient(#d8b4a0, #f4c2c2);
-        padding: 20px;
-        text-align: center;
-        color: #5a3e36;
-        position: relative;
+      width: 35%;
+      background: linear-gradient(#d8b4a0, #f4c2c2);
+      padding: 20px;
+      text-align: center;
+      color: #5a3e36;
     }
 
     .right {
-        width: 65%;
-        padding: 25px;
-        background: #fffdf9;
-        position: relative;
-    }
-
-    /* ---------- FLOATING TEDDY ---------- */
-    .floating-teddy {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        width: 90px;
-        animation: float 3s ease-in-out infinite;
-        pointer-events: none;
-    }
-
-    @keyframes float {
-        0%,100% { transform: translateY(0); }
-        50% { transform: translateY(-12px); }
-    }
-
-    /* ---------- STICKERS ---------- */
-    .sticker {
-        position: absolute;
-        width: 50px;
-        pointer-events: none;
-    }
-
-    .top-left { top: 10px; left: 10px; }
-    .top-right { top: 10px; right: 10px; }
-    .bottom-right { bottom: 10px; right: 10px; }
-
-    /* ---------- TEXT AREA ---------- */
-    .top {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        color: #8b5e3c;
+      width: 65%;
+      padding: 25px;
+      background: #fffdf9;
     }
 
     textarea {
-        width: 100%;
-        height: 70%;
-        border: none;
-        resize: none;
-        outline: none;
-        background: repeating-linear-gradient(
-            white,
-            white 28px,
-            #f0e0d6 29px
-        );
-        font-size: 16px;
-        line-height: 29px;
-        padding: 10px;
-        font-family: 'Comic Sans MS', cursive;
-        color: #5a3e36;
+      width: 100%;
+      height: 70%;
+      border: none;
+      resize: none;
+      outline: none;
+      background: repeating-linear-gradient(
+        white,
+        white 28px,
+        #f0e0d6 29px
+      );
+      font-size: 16px;
+      line-height: 29px;
+      padding: 10px;
+      font-family: "Comic Sans MS", cursive;
+      color: #5a3e36;
+      border-radius: 10px;
     }
 
     .controls {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
     }
 
     button {
-        background: #d8a7b1;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 20px;
-        cursor: pointer;
-        color: white;
+      background: #d8a7b1;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      font-size: 14px;
+      margin: 4px 0;
     }
-</style>
-</head>
 
+    button:hover { opacity: 0.85; }
+
+    #userInfo {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #4b2e2e;
+    }
+  </style>
+</head>
 <body>
 
-<!-- ========== COVER PAGE ========== -->
-<div class="cover" onclick="openDiary()">
+  <!-- COVER -->
+  <div class="cover" id="cover">
     <div class="cover-book">
-        <!-- 🔴 ADD YOUR DIARY COVER IMAGE HERE -->
-         <img src="https://i.pinimg.com/736x/9f/61/71/9f6171fc7f17b3e4fde6d229834989ca.jpg">
-
+      <img src="https://i.pinimg.com/736x/9f/61/71/9f6171fc7f17b3e4fde6d229834989ca.jpg">
     </div>
-</div>
+  </div>
 
-<!-- ========== DIARY ========== -->
-<div class="container" id="container">
+  <!-- DIARY -->
+  <div class="container" id="container">
     <div class="diary">
 
-        <div class="left">
-            <h2>Our Diary 🤎</h2>
-            <p>100 little memories</p>
+      <!-- LEFT PANEL -->
+      <div class="left">
+        <h2>Our Diary 🤎</h2>
+        <p>Secret Shared Pages</p>
 
-            <!-- 🔴 FLOATING TEDDY IMAGE -->
-            
+        <button id="googleLogin">🔐 Login with Google</button>
+        <button id="githubLogin">🐙 Login with GitHub</button>
+        <button id="logoutBtn">🚪 Logout</button>
 
+        <p id="userInfo">Not logged in ❌</p>
+      </div>
 
-            <!-- 🔴 STICKER IMAGES -->
-                    </div>
-
-        <div class="right">
-            <div class="top">
-                <div id="date"></div>
-                <div>Page <span id="pageNo">1</span> / 100</div>
-            </div>
-
-            <textarea id="entry" placeholder="Dear diary..."></textarea>
-
-            <div class="controls">
-                <button onclick="prevPage()">⬅ Prev</button>
-                <button onclick="savePage()">Save 💾</button>
-                <button onclick="nextPage()">Next ➡</button>
-            </div>
+      <!-- RIGHT PANEL -->
+      <div class="right">
+        <div style="display:flex; justify-content:space-between; color:#8b5e3c;">
+          <div id="date"></div>
+          <div>Page <span id="pageNo">1</span> / 100</div>
         </div>
+
+        <textarea id="entry" placeholder="Dear diary..." disabled></textarea>
+
+        <div class="controls">
+          <button id="prevPage">⬅ Prev</button>
+          <button id="savePage">Save 💾</button>
+          <button id="nextPage">Next ➡</button>
+        </div>
+      </div>
+
     </div>
-</div>
+  </div>
 
-<script>
-    function openDiary() {
-        document.querySelector(".cover").style.opacity = "0";
-        document.querySelector(".cover").style.pointerEvents = "none";
-        document.getElementById("container").classList.add("show");
-    }
+  <!-- FIREBASE MODULE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    let currentPage = 1;
+    const firebaseConfig = {
+      apiKey: "AIzaSyCxXIrkw-YRlrV9t-ENXeb02GHq57xcPHo",
+      authDomain: "diaryyy-4b4b2.firebaseapp.com",
+      projectId: "diaryyy-4b4b2",
+      storageBucket: "diaryyy-4b4b2.firebasestorage.app",
+      messagingSenderId: "790345621096",
+      appId: "1:790345621096:web:1927790a4a87c5c72365dd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+
     const entry = document.getElementById("entry");
     const pageNo = document.getElementById("pageNo");
-    document.getElementById("date").innerText = new Date().toDateString();
+    const userInfo = document.getElementById("userInfo");
+    const dateEl = document.getElementById("date");
+    dateEl.innerText = new Date().toDateString();
+    let currentPage = 1;
 
-    function loadPage() {
-        pageNo.innerText = currentPage;
-        entry.value = localStorage.getItem("diaryPage" + currentPage) || "";
+    // ---------------- OPEN DIARY IMMEDIATELY ----------------
+    document.getElementById("cover").addEventListener("click", () => {
+      document.getElementById("cover").style.display = "none";
+      document.getElementById("container").classList.add("show");
+    });
+
+    // ---------------- LOGIN ----------------
+    document.getElementById("googleLogin").addEventListener("click", async () => {
+      try { await signInWithPopup(auth, googleProvider); } 
+      catch(e){ alert("Google login failed: " + e.message); }
+    });
+
+    document.getElementById("githubLogin").addEventListener("click", async () => {
+      try { await signInWithPopup(auth, githubProvider); } 
+      catch(e){ alert("GitHub login failed: " + e.message); }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    // ---------------- AUTH STATE ----------------
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        userInfo.innerText = "Logged in as: " + (user.email || user.displayName);
+        entry.disabled = false;
+        loadPage();
+      } else {
+        userInfo.innerText = "Not logged in ❌";
+        entry.value = "";
+        entry.disabled = true;
+      }
+    });
+
+    // ---------------- LOAD PAGE ----------------
+    async function loadPage(){
+      const user = auth.currentUser;
+      if(!user) return;
+      pageNo.innerText = currentPage;
+      const pageRef = doc(db, "users", user.uid, "pages", "page" + currentPage);
+      const snap = await getDoc(pageRef);
+      entry.value = snap.exists() ? snap.data().text : "";
     }
 
-    function savePage() {
-        localStorage.setItem("diaryPage" + currentPage, entry.value);
-    }
+    // ---------------- SAVE PAGE ----------------
+    document.getElementById("savePage").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if(!user){ alert("Login first!"); return; }
+      const pageRef = doc(db, "users", user.uid, "pages", "page" + currentPage);
+      await setDoc(pageRef, { text: entry.value, updated: new Date().toISOString() });
+      alert("Saved 💖 Diary Updated!");
+    });
 
-    function nextPage() {
-        if (currentPage < 100) {
-            savePage();
-            currentPage++;
-            loadPage();
-        }
-    }
+    // ---------------- PAGE NAVIGATION ----------------
+    document.getElementById("nextPage").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if(!user){ alert("Login first!"); return; }
+      if(currentPage < 100){ currentPage++; loadPage(); }
+    });
 
-    function prevPage() {
-        if (currentPage > 1) {
-            savePage();
-            currentPage--;
-            loadPage();
-        }
-    }
+    document.getElementById("prevPage").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if(!user){ alert("Login first!"); return; }
+      if(currentPage > 1){ currentPage--; loadPage(); }
+    });
 
-    loadPage();
-</script>
+  </script>
 
 </body>
 </html>
